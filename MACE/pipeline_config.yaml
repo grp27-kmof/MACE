@@ -1,0 +1,82 @@
+# ============================================================
+# QMOF K+ Battery Screening Pipeline -- Configuration
+# ============================================================
+
+geometry:
+  k_ion_diameter: 2.76
+  min_void_radius: 1.38
+  grid_spacing: 0.20
+  n_candidate_voids: 10
+  use_zeopp: true
+
+# -----------------------------------------------------------
+# Stage 2: Automated Pathfinding
+# -----------------------------------------------------------
+bvse:
+  enabled: true                    # whether to attempt BVSE pathfinding first
+  mobile_ion: "K+"                 # species to migrate
+  resolution: 0.1                  # grid spacing in Å for BVSE calculation
+  r_cut: 10.0                      # interaction cutoff for BVSE (Å)
+  max_candidates: 10               # number of candidate paths to consider
+  min_hop_distance: 1.5            # minimum K+ hopping distance for BVSE
+  energy_asymmetry_threshold: 1.0  # max allowed |E(init)-E(final)| after MACE snap (eV)
+  fallback_to_void: true           # if BVSE fails, use void-based PathFinder
+
+pathfinding:
+  max_hop_distance: 8.0          # A -- maximum K+ hopping distance (8.0 covers large-pore MOFs like ZIF-8)
+  snap_fmax: 0.10
+  snap_steps: 300
+  snap_maxstep: 0.05
+  use_distinct_path_finder: true
+  max_paths: 3                   # <-- NEW: evaluate only the first 3 paths (avoids bad ones)
+
+# -----------------------------------------------------------
+# Stage 3: CI-NEB Physics Engine
+# Two-phase: flat-band warm-up first, then climbing-image NEB.
+# -----------------------------------------------------------
+neb:
+  n_images: 7
+  spring_constant: 0.08        # soft spring keeps band from overstretching
+  fmax: 0.10                   # practical convergence for a MOF+K on CPU
+  maxstep: 0.04                # small FIRE steps prevent divergence
+  max_steps: 2000              # total budget (warmup + CI phases)
+  warmup_steps: 200            # flat-band (climb=False) steps before CI-NEB
+  interpolation: idpp
+  endpoint_relax_fmax: 0.05
+  endpoint_relax_steps: 1000
+  volume_collapse_threshold: 0.15
+
+# -----------------------------------------------------------
+# Stage 4: Post-Processing
+# -----------------------------------------------------------
+physics:
+  D0: 1.0e-3
+  T: 298.0
+  z: 1
+  conductivity_threshold: 1.0e-4
+  barrier_unphysical_threshold: 3.0
+
+# -----------------------------------------------------------
+# Supercell
+# -----------------------------------------------------------
+supercell: [1, 1, 1]
+
+# -----------------------------------------------------------
+# MACE Model  (pointing to your local medium model)
+# -----------------------------------------------------------
+model:
+  device: cpu
+  model_path: 2023-12-03-mace-128-L1_epoch-199.model
+  head: null
+  default_dtype: float32
+
+# -----------------------------------------------------------
+# Output
+# -----------------------------------------------------------
+output:
+  results_csv: screening_results.csv
+  failures_csv: screening_failures.csv
+  dft_queue_csv: dft_validation_queue.csv
+  neb_trajectories_dir: neb_trajectories
+  save_neb_trajectories: true
+  log_level: INFO

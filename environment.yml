@@ -1,0 +1,45 @@
+name: mace_clean_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu121
+      - torch==2.5.1+cu121
+      - torchvision==0.20.1+cu121
+      - torchaudio==2.5.1+cu121
+      - mace-torch==0.3.16
+      - ase==3.23.0
+      - pymatgen==2025.10.7
+      - bvlain==0.25.1
+      - e3nn==0.4.4
+      - ions==0.5.1
+      - matscipy==1.2.0
+      - numpy==2.2.6
+      - scipy==1.15.3
+      - spglib==2.7.0
+      - ConfigArgParse==1.7.5
+      - contourpy==1.3.2
+      - h5py==3.16.0
+      - Jinja2==3.1.6
+      - joblib==1.5.3
+      - matplotlib==3.10.9
+      - monty==2025.3.3
+      - networkx==3.4.2
+      - opt_einsum==3.4.0
+      - opt-einsum-fx==0.1.4
+      - pandas==2.3.3
+      - pillow==12.2.0
+      - plotly==6.9.0
+      - prettytable==3.18.0
+      - PyYAML==6.0.3
+      - requests==2.34.2
+      - ruamel.yaml==0.19.1
+      - sympy==1.13.1
+      - tabulate==0.10.0
+      - torch-ema==0.3
+      - torchmetrics==1.9.0
+      - tqdm==4.68.4
+      - uncertainties==3.2.3

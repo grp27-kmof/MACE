@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+venv/
+mace_env/
+
+# Editors and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local scratch
+*.log
+.ipynb_checkpoints/
+
+# ASE run files
+*.traj
+ase-*.db
+
+# Pipeline products from a local run. The one checked-in example is kept.
+MACE/output/**
+!MACE/output/sample_176_diffusion_barrier.xyz
+MACE/screening_results.csv
+MACE/screening_failures.csv
+MACE/dft_validation_queue.csv
