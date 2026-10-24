@@ -1340,7 +1340,6 @@ def build_mace_calculator(cfg: dict, gpu_id: Optional[int] = None):
         cache_dir / "2024-01-07-mace-128-L2_epoch-199.model",
         cache_dir / "2023-12-03-mace-128-L1_epoch-199.model",
         cwd       / "2023-12-03-mace-128-L1_epoch-199.model",
-        cwd       / "mace-mh-1.model",
         cwd       / "models" / "mace-mp-0-medium.model",
     ]
     for c in candidates:

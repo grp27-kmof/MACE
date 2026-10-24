@@ -28,7 +28,7 @@ The migration barrier is `max(E) − min(E_endpoints)` along the relaxed band.
 | Python 3.11 | Conda environment in `environment.yml` |
 | PyTorch 2.5.1 + CUDA 12.1 | CPU works; a CI-NEB on one MOF is much slower |
 | MACE-Torch 0.3.16, ASE, pymatgen, PyYAML | Pinned in `environment.yml` and `requirements.txt` |
-| A MACE `.model` file | Both shipped weights live in `MACE/` |
+| A MACE `.model` file | `MACE/2023-12-03-mace-128-L1_epoch-199.model` |
 
 Optional, with automatic fallbacks:
 
@@ -63,7 +63,7 @@ python -m venv mace_env
 pip install -r requirements.txt
 ```
 
-The default model in `MACE/pipeline_config.yaml` is `2023-12-03-mace-128-L1_epoch-199.model` (fast screening, ~42 MB). `mace-mh-1.model` (~56 MB) is the higher-accuracy alternative. Set `model.model_path` to switch. The 2023 model has a single `Default` head; a `--head` name that is not in the file is ignored and that head is used.
+The pipeline loads `2023-12-03-mace-128-L1_epoch-199.model` (~42 MB), set by `model.model_path` in `MACE/pipeline_config.yaml`. That file has a single `Default` head, so a `--head` name that is not in the file is ignored.
 
 GPU check:
 
@@ -84,7 +84,6 @@ mace/
     ├── pipeline_config.yaml
     ├── bvse_ions_path.py            # standalone BVSE site finder
     ├── 2023-12-03-mace-128-L1_epoch-199.model
-    ├── mace-mh-1.model
     ├── input/
     │   └── sample_176.cif           # example structure
     └── output/

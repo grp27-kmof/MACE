@@ -58,20 +58,17 @@ pip install -r requirements.txt
 
 ## 🤖 MACE Model Weights
 
-The pipeline requires a pre-trained MACE model. Two models are supported out of the box:
+The pipeline loads one model, set in `pipeline_config.yaml`:
 
-| Model File | Size | Recommended Use |
+| Model file | Size | Use |
 |---|---|---|
-| `2023-12-03-mace-128-L1_epoch-199.model` | ~42 MB | Fast screening runs |
-| `mace-mh-1.model` | ~56 MB | Higher accuracy |
+| `2023-12-03-mace-128-L1_epoch-199.model` | ~42 MB | The model every run uses |
 
-Place your model file in the **`MACE/`** directory (same directory as `qmof_screening_pipeline.py`).
-
-Update the model path in `pipeline_config.yaml`:
+It already sits in `MACE/`, next to `qmof_screening_pipeline.py`.
 
 ```yaml
 model:
-  model_path: 2023-12-03-mace-128-L1_epoch-199.model  # or mace-mh-1.model
+  model_path: 2023-12-03-mace-128-L1_epoch-199.model
   device: cuda   # or cpu
   default_dtype: float32
 ```
@@ -90,7 +87,6 @@ mace/
     ├── pipeline_config.yaml           ← All tunable parameters
     ├── bvse_ions_path.py              ← BVSE pathfinding helper
     ├── 2023-12-03-mace-128-L1_epoch-199.model  ← MACE weights
-    ├── mace-mh-1.model                ← Alt MACE weights
     ├── input/sample_176.cif           ← Example CIF
     └── output/sample_176_diffusion_barrier.xyz
 ```
